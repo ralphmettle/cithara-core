@@ -28,7 +28,11 @@ class Scale(ABC):
     @property
     def note_names(self) -> list[str]:
         """Return the scale’s notes as a list of strings."""
-        return [deg.note.note_name for deg in self.notes]
+        return [deg.note_name for deg in self.notes]
+
+    @property
+    def intervals(self) -> list[Interval]:
+        return [deg.interval for deg in self.notes]
 
     # 0-indexed method of getting a specific ScaleDegree
     def degree(self, degree: int) -> ScaleDegree:

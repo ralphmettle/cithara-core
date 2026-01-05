@@ -3,6 +3,7 @@ from cithara.note import Note
 from cithara.scale.major_scale import MajorScale
 from cithara.scale.harmonic_minor_scale import HarmonicMinorScale
 from cithara.contextualised_note import ScaleDegree
+from cithara.interval import INTERVAL_NAMES
 
 MAJOR_SCALE_TESTS = [
     ("C", ["C", "D", "E", "F", "G", "A", "B"]),
@@ -13,6 +14,14 @@ MAJOR_SCALE_TESTS = [
 
 HARMONIC_MINOR_TESTS = [
     ("C", ["C", "D", "Eb", "F", "G", "Ab", "B"]),
+]
+
+INTERVAL_TESTS = [
+    ("C", MajorScale, [0, 2, 4, 5, 7, 9, 11]),
+    ("D", MajorScale, [0, 2, 4, 5, 7, 9, 11]),
+    ("F", MajorScale, [0, 2, 4, 5, 7, 9, 11]),
+    ("G", MajorScale, [0, 2, 4, 5, 7, 9, 11]),
+    ("C", HarmonicMinorScale, [0, 2, 3, 5, 7, 8, 11]),
 ]
 
 
@@ -43,3 +52,17 @@ class TestScales:
 
         for i, expected_note_name in enumerate(expected_notes):
             assert scale[i].note_name == expected_note_name
+
+    @pytest.mark.parametrize(
+        "root_name, scale_type, expected_semitones", INTERVAL_TESTS
+    )
+    def test_scale_intervals(self, root_name, scale_type, expected_semitones):
+        root = Note(note_name=root_name)
+        scale = scale_type(root=root)
+
+        intervals = scale.intervals
+
+        assert [iv.semitones for iv in intervals] == expected_semitones
+        assert [iv.interval_name for iv in intervals] == [
+            INTERVAL_NAMES[s] for s in expected_semitones
+        ]
