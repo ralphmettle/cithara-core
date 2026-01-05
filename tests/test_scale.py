@@ -20,7 +20,7 @@ class TestScales:
 
     @pytest.mark.parametrize("root_name, expected_notes", MAJOR_SCALE_TESTS)
     def test_major_scale(self, root_name, expected_notes):
-        root = Note(root_name)
+        root = Note(note_name=root_name)
         scale = MajorScale(root=root)
 
         assert scale.root == root
@@ -33,7 +33,7 @@ class TestScales:
 
     @pytest.mark.parametrize("root_name, expected_notes", HARMONIC_MINOR_TESTS)
     def test_harmonic_minor_scale(self, root_name, expected_notes):
-        root = Note(root_name)
+        root = Note(note_name=root_name)
         scale = HarmonicMinorScale(root=root)
 
         assert scale.root == root
