@@ -1,5 +1,5 @@
 from cithara.note import Note
-from cithara.scale.base import Scale, ScaleBuilder, SCALE_FORMULA
+from cithara.scale.base import Scale, SCALE_FORMULA
 
 
 class HarmonicMinorScale(Scale):

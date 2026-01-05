@@ -25,18 +25,18 @@ class Scale(ABC):
             root=self.root, formula=self.formula
         )
 
-        # 0-indexed method of getting a specifc scale degree
-        @classmethod
-        def degree(self, degree: int):
-            # How do I want to represent the degree?
-            # Should I allow for "extended degrees" i.e. mod(7) operation?
-            # Do I expect the user to only pass in a number 1-7?
-            pass
-
     @property
     def note_names(self) -> list[str]:
         """Return the scale’s notes as a list of strings."""
         return [deg.note.note_name for deg in self.notes]
+
+    # 0-indexed method of getting a specific ScaleDegree
+    def degree(self, degree: int) -> ScaleDegree:
+        return self.notes[degree % 7]
+
+    # Subscript access to Note objects
+    def __getitem__(self, index: int) -> Note:
+        return self.notes[index % 7].note
 
 
 class ScaleFactory:
